@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>SMeSseR by jjbuckley</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>SMeSseR</h1>
+        <p>Free SMSs from Ruby</p>
+        <p class="view"><a href="https://github.com/jjbuckley/smesser">View the Project on GitHub <small>jjbuckley/smesser</small></a></p>
+        <ul>
+          <li><a href="https://github.com/jjbuckley/smesser/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jjbuckley/smesser/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jjbuckley/smesser">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>Installation</h3>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'smesser'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install smesser
+</code></pre>
+
+<h3>Usage</h3>
+
+<p>Smesser is generally supposed to be used as part of a more useful application,
+for sending (free!) SMSs.</p>
+
+<p>It does, however, come with a little command-line application (<code>smesser</code>). Try
+<code>smesser -h</code> when it's installed.</p>
+
+<h3>Configuration</h3>
+
+<p>You can program Smesser programatically, but it will also
+have a look for some configuration files, and determine the
+username/password/provider from there. These config files are loaded, in order,
+if they exist:</p>
+
+<ul>
+<li>/etc/smesserrc</li>
+<li>/usr/local/etc/smesserrc</li>
+<li>~/.smesserrc</li>
+</ul><p><em>HINT</em>: If you're a command-line type of person (which I presume yuo are, as
+you're reading this), then add a "contacts" hash to your configuration file.
+These can be used as aliases instead of phone number.</p>
+
+<p>Here's a sample configuration file, which you'd keep as ~/.smesserrc</p>
+
+<div class="highlight">
+<pre><span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">o2.ie</span>
+<span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="s">"0861234567"</span> <span class="c1"># &lt;-- Ensure a string, or the leading 0 could vanish!</span>
+<span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">secret</span>
+<span class="l-Scalar-Plain">contacts</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">mom</span><span class="p-Indicator">:</span> <span class="s">"+3538712345678"</span>
+  <span class="l-Scalar-Plain">dad</span><span class="p-Indicator">:</span> <span class="s">"+1123456788"</span>
+  <span class="l-Scalar-Plain">lisa</span><span class="p-Indicator">:</span> <span class="s">"08517171717"</span>
+</pre>
+</div>
+
+
+<h3>Providers</h3>
+
+<p>The core of Smesser is done by little <a href="http://mechanize.rubyforge.org/">Mechanize</a> agents, called
+Providers, that know how to log in (as you) to a specific website, fill in a
+form, and submit it.</p>
+
+<p>The only requirements for a Provider is that it responds to <code>login</code> and <code>send</code>.
+By subclassing Smesser::Provider, you get a couple of convenience methods to
+help you create your own.</p>
+
+<p>Have a look at bundled providers for info on how to write your own provider.</p>
+
+<p>Currently, there's</p>
+
+<ul>
+<li>vodafone.ie</li>
+<li>o2.ie</li>
+</ul><h3>Contributing</h3>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jjbuckley">jjbuckley</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
