@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+require File.expand_path(File.join(File.dirname(__FILE__), '../lib/smesser'))
+require 'optparse'
+
+$options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: smesser [options]"
+
+  opts.on('-c', '--config FILE', String, 'Use a specific config file') do |f|
+    if File.exists?
+      Smesser.config_files << f
+    else
+      puts "Can't open file #{f}"
+      exit 3
+    end
+  end
+
+  opts.on('-m', '--message MESSAGE', String, 'Your message. If blank, reads from STDIN.') do |m|
+    $options[:message] = m
+  end
+
+  opts.on('-P', '--provider PROVIDER', String, 'Choose a provider (list with --list)') do |p|
+    $options[:provider] = p
+  end
+
+  opts.on('-u', '--username USERNAME', String, 'Specify a username to log in with') do |u|
+    $options[:username] = u
+  end
+
+  opts.on('-p', '--password PASSWORD', String, 'Specify a password to log in with') do |p|
+    $options[:password] = p
+  end
+
+  opts.on('-L', '--list', 'Show all known providers, and exit') do
+    Smesser.print_providers
+    exit
+  end
+
+  opts.on('-v', '--verbose', 'Be more verbose') do
+    Smesser.log.level = Logger::INFO
+  end
+
+  opts.on('-d', '--debug', 'Debug the application') do
+    Smesser.log.level = Logger::DEBUG
+  end
+
+  opts.on('-n', '--dry-run', "Don't actually send the message") do
+    Smesser.configuration[:dryrun] = true
+  end
+
+  opts.on_tail('-h', '--help', 'Show this message') do
+    puts opts.to_s
+    exit
+  end
+end.parse!(ARGV)
+
+if ARGV.empty?
+  puts "You didn't enter any recipients!"
+  exit 1
+end
+$options[:recipients] = []
+$options[:recipients] << ARGV.shift until ARGV.empty?
+
+if $options[:message].nil?
+  print "Type your message below, and finish with ^D:\n> "
+  $options[:message] = ARGF.read.chomp
+end
+
+print "Sending... "
+result = Smesser.send_message($options)
+
+puts "#{result[:remaining]} remaining" if result[:remaining]
+puts result[:message] if result[:message]
+puts result[:status]
+exit -1 unless result[:status] == "OK"
