@@ -44,7 +44,8 @@ module Smesser
     provider = providers[args[:provider]].new(args[:username], args[:password])
     log.debug("Provider: #{provider.inspect}")
 
-    recipients = lookup_contacts(args[:recipients])
+    recipients = args[:recipients].is_a?(String) ? [args[:recipients]] : args[:recipients]
+    recipients = lookup_contacts(recipients)
     log.debug("Recipients: #{recipients.inspect}")
 
     unless provider.logged_in?

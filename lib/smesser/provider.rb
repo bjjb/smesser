@@ -77,5 +77,9 @@ module Smesser
       Smesser.log
     end
 
+    def logged_in?
+      false
+    end
+
   end
 end
