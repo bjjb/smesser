@@ -5,6 +5,8 @@ require "smesser/version"
 
 module Smesser
   autoload :Provider, 'smesser/provider'
+  autoload :Server, 'smesser/server'
+  autoload :Config, 'smesser/config'
 
   def self.config_files
     @configfiles ||= [

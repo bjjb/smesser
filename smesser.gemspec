@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Smesser::VERSION
   gem.add_development_dependency 'rake'
   gem.add_dependency 'mechanize', '~> 2.3'
+  gem.add_dependency 'sinatra', '~> 1.3'
 end
