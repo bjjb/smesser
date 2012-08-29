@@ -17,4 +17,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake'
   gem.add_dependency 'mechanize', '~> 2.3'
   gem.add_dependency 'sinatra', '~> 1.3'
+  gem.add_dependency 'haml', '~> 3.1'
+  gem.add_dependency 'sass', '~> 3.1'
+  gem.add_dependency 'coffee-script', '~> 2.2'
+  gem.add_development_dependency 'thin', '~> 1.4'
 end
